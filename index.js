@@ -52,13 +52,23 @@ app.get('/database/:databaseId', async (req, res) => {
                 id: page.id,
                 parent: page.parent,
                 properties: page.properties,
-                content: content.results[0].paragraph.rich_text[0].text.content
+                content: content.results[0] ? content.results[0].paragraph.rich_text[0].text.content : ""
             }
         }));
         database.data = blocks;
         res.send(database)
     } catch (error) {
-        res.send(error.response.data)
+        console.log(error)
+        if(error.respone){
+            res.send({error: error.respone})
+        } 
+        if (error.request) {
+            res.send({error: error.request})
+        }
+        if (error.message) {
+            res.send({error: error.message})
+        }
+        res.send({error: "UNKNOWN ERROR"})
     }
 
 })
