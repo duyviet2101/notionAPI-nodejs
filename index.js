@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT;
 
 const database = require('./config/database');
-database.connect();
+// database.connect();
 
 //!config urlencoded
 app.use(
