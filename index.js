@@ -3,10 +3,10 @@ const express = require('express');
 const route = require('./routes/index.route')
 
 const app = express();
-const port = process.env.PORT;
+const port = 3005;
 
-const database = require('./config/database');
-database.connect();
+// const database = require('./config/database');
+// database.connect();
 
 //!config urlencoded
 app.use(
