@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 
-const controller = require('../controllers/database.controller')
+const controller = require('../../controllers/user/database.controller')
 
 Router.post('/:databaseId/query', controller.getDatabase)
 

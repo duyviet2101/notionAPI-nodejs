@@ -1,12 +1,13 @@
 require('dotenv').config()
 const express = require('express');
-const route = require('./routes/index.route')
+const route = require('./routes/user/index.route')
+const routeAdmin = require('./routes/admin/index.route.js')
 
 const app = express();
 const port = 3005;
 
-// const database = require('./config/database');
-// database.connect();
+const database = require('./config/database');
+database.connect();
 
 //!config urlencoded
 app.use(
@@ -18,6 +19,7 @@ app.use(express.json()); // TH gửi từ code JS
 
 
 route(app);
+routeAdmin(app);
 
 app.listen(port, () => {
     console.log(`http://127.0.0.1:${port}`)

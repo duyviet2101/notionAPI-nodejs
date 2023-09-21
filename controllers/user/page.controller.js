@@ -1,4 +1,4 @@
-const requestNotion = require('../config/notion')
+const requestNotion = require('../../config/notion')
 
 module.exports.getPage = async (req, res) => {
     const pageId = req.params.pageId;

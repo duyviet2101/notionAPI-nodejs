@@ -1,7 +1,6 @@
 const requestNotion = require('../config/notion');
 
-module.exports.getDatabase = async (req, res) => {
-    const databaseId = req.params.databaseId;
+module.exports = async (databaseId, body) => {
     try {
         //! get thông tin của database
         var responseDatabase = await requestNotion({
@@ -31,13 +30,12 @@ module.exports.getDatabase = async (req, res) => {
         var startCursor = null;
         while (true) {
             if (startCursor) {
-                req.body.start_cursor = startCursor;
+                body.start_cursor = startCursor;
             }
-
             const responsePages = await requestNotion({
                 method: 'POST',
                 url: `/databases/${databaseId}/query`,
-                data: req.body
+                data: body
             }).then (respone => respone.data)
 
             allPages = [...allPages, ...responsePages.results];
@@ -67,22 +65,9 @@ module.exports.getDatabase = async (req, res) => {
             }
         }));
         database.data = blocks;
-        res.send(database)
-    } catch (error) {
-        // console.log(">>>>>>>>>>>>>>>",error.code)
-        if(error.respone){
-            // console.log('response>>>',error.respone)
-            res.send({error: error.respone.data})
-        } else
-        if (error.request) {
-            // console.log('request>>>',error.request.data)
-            res.send({error: error.code})
-        } else
-        if (error.message) {
-            // console.log('message>>>',error.message)
-            res.send({error: error.message})
-        } else
-        res.send({error: "UNKNOWN ERROR"})
-    }
 
+        return database
+    } catch (error) {
+        throw error
+    }
 }
