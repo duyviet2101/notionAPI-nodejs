@@ -1,10 +1,12 @@
 require('dotenv').config()
 const express = require('express');
 const route = require('./routes/index.route')
+const cors = require('./middleware/cors.js')
 
 const app = express();
 const port = 3005;
 
+cors(app)
 // const database = require('./config/database');
 // database.connect();
 
