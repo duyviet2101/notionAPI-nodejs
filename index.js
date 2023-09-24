@@ -24,6 +24,3 @@ route(app);
 app.listen(port, () => {
     console.log(`http://127.0.0.1:${port}`)
 })
-
-
-app.get('/pages/:pageId', )
